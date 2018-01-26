@@ -1,0 +1,14 @@
+{
+  "name": "essy-chart-example",
+  "version": "1.0.0",
+  "description": "React and d3 example.",
+  "main": "index.js",
+  "scripts": {
+    "test": "test"
+  },
+  "author": "Spencer Cherry",
+  "license": "ISC",
+  "devDependencies": {
+    "webpack": "^3.10.0"
+  }
+}
