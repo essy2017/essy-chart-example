@@ -46,7 +46,19 @@ export default class App extends React.Component {
       size: [800, 300],
       show: true
     };
-    this.handleClickBtn = this.handleClickBtn.bind(this);
+    this.handleClickBtn     = this.handleClickBtn.bind(this);
+    this.handleWindowResize = this.handleWindowResize.bind(this);
+  }
+
+ /**
+  * Lifecycle method.
+  * @method componentDidMount
+  */
+  componentDidMount () {
+    this.setState({
+      size: [this.el.parentNode.offsetWidth, 300]
+    });
+    window.addEventListener('resize', this.handleWindowResize, this);
   }
 
  /**
@@ -59,9 +71,13 @@ export default class App extends React.Component {
     });
   }
 
-  handleClickTest () {
+ /**
+  * Handler for window resize events.
+  * @method handleWindowResize
+  */
+  handleWindowResize () {
     this.setState({
-      show: !this.state.show
+      size: [this.el.parentNode.offsetWidth, 300]
     });
   }
 
@@ -71,9 +87,8 @@ export default class App extends React.Component {
   */
   render () {
     return (
-      <div>
+      <div ref={el => {this.el = el}}>
         <button onClick={this.handleClickBtn}>Refresh</button>
-        <button onClick={this.handleClickTest.bind(this)}>Toggle</button>
         {
           this.state.show &&
           <ChartContainer

@@ -30,6 +30,7 @@ export default class Chart {
   *   size {Number[]} [width, height] for chart.
   */
   constructor (node, props) {
+    this.lastWidth = -1;
     this.render(node, props);
   }
 
@@ -103,6 +104,12 @@ export default class Chart {
     x.domain(d3_range(props.data.length));
     y.domain([0, d3_max(props.data)]);
 
+    // Update svg width and x range if needed.
+    if (props.resize) {
+      svg.attr('width', props.outerWidth);
+      x.range([0, props.innerWidth]);
+    }
+
     // Draw axes.
     svg.select('.x.axis')
       .transition(t)
@@ -161,12 +168,20 @@ export default class Chart {
   normalizeProps (props) {
 
     const margin = { top: 10, right: 10, bottom: 20, left: 25 };
+    let resize   = false;
+
+    if (this.lastWidth !== props.size[0]) {
+      this.lastWidth = props.size[0];
+      resize = true;
+    }
+
     return Object.assign({}, props, {
       innerHeight : props.size[1] - margin.top - margin.bottom,
       innerWidth  : props.size[0] - margin.left - margin.right,
       margin      : margin,
       outerHeight : props.size[1],
-      outerWidth  : props.size[0]
+      outerWidth  : props.size[0],
+      resize      : resize
     });
 
   }
