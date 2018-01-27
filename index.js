@@ -20646,7 +20646,7 @@ var Chart = function () {
       var svg = this.svg;
       var x = this.x;
       var y = this.y;
-      var t = (0, _d.transition)().duration(5000);
+      var t = (0, _d.transition)().duration(500);
       var line = (0, _d.line)().curve(_d.curveBasis).x(function (d, i) {
         return x(i);
       }).y(function (d) {

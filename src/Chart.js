@@ -93,7 +93,7 @@ export default class Chart {
     const svg  = this.svg;
     const x    = this.x;
     const y    = this.y;
-    const t    = d3_transition().duration(5000);
+    const t    = d3_transition().duration(500);
     const line = d3_line()
       .curve(d3_curveBasis)
       .x((d, i) => x(i))
