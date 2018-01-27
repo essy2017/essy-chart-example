@@ -48,6 +48,7 @@ export default class Chart {
 
     // Main element.
     const svg = this.svg = d3_select(node).append('svg')
+      .attr('id', 'svg')
       .attr('width', props.outerWidth)
       .attr('height', props.outerHeight)
       .append('g')
@@ -106,7 +107,7 @@ export default class Chart {
 
     // Update svg width and x range if needed.
     if (props.resize) {
-      svg.attr('width', props.outerWidth);
+      d3_select('#svg').attr('width', props.outerWidth);
       x.range([0, props.innerWidth]);
     }
 
