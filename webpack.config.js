@@ -9,11 +9,11 @@ module.exports = [
       extensions: ['.js', '.jsx']
     },
 
-    entry: path.join(__dirname, 'index.jsx'),
+    entry: path.join(__dirname, '/src/index.jsx'),
 
     output: {
-      path: __dirname.replace('/essy-chart-example', ''),
-      filename: 'chart-example.min.js'
+      path: __dirname,
+      filename: 'index.js'
     },
 
     module: {
@@ -27,15 +27,6 @@ module.exports = [
         }
       ]
     },
-
-    plugins: [
-      new webpack.optimize.UglifyJsPlugin(),
-      new webpack.DefinePlugin({
-        'process.env': {
-          NODE_ENV: JSON.stringify('production')
-        }
-      })
-    ],
 
     stats: {
       colors: true
