@@ -14,12 +14,12 @@ function getData () {
   const min = 0;
   const max = 20;
 
-  const n = 10 + Math.round(Math.random() * (20 - 10));
+  const n = 10 + 10 * Math.round(Math.random());
 
   let data = [];
 
   for (let i = 0; i < n; i++) {
-    data.push(min + Math.random() * (max - min));
+    data.push(20 * Math.random());
   }
 
   return data;
@@ -43,8 +43,7 @@ export default class App extends React.Component {
     super(props);
     this.state = {
       data: getData(),
-      size: [800, 300],
-      show: true
+      size: [800, 300]
     };
     this.handleClickBtn     = this.handleClickBtn.bind(this);
     this.handleWindowResize = this.handleWindowResize.bind(this);
@@ -58,7 +57,15 @@ export default class App extends React.Component {
     this.setState({
       size: [this.el.parentNode.offsetWidth, 300]
     });
-    window.addEventListener('resize', this.handleWindowResize, this);
+    window.addEventListener('resize', this.handleWindowResize, false);
+  }
+
+ /**
+  * Lifecycle method.
+  * @method componentWillUnmount
+  */
+  componentWillUnmount () {
+    window.removeEventListener('resize', this.handleWindowResize);
   }
 
  /**
@@ -89,13 +96,10 @@ export default class App extends React.Component {
     return (
       <div ref={el => {this.el = el}}>
         <button onClick={this.handleClickBtn}>Refresh</button>
-        {
-          this.state.show &&
-          <ChartContainer
-            data={this.state.data}
-            size={this.state.size}
-          />
-        }
+        <ChartContainer
+          data={this.state.data}
+          size={this.state.size}
+        />
       </div>
     );
   }
